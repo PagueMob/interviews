@@ -8,7 +8,7 @@ To accomplish the frontend test, your pages should communicate with our API to s
    ```
 
  - Models
- 
+
    ```
    enum Gender {
      Male('m'), Female('f')
@@ -24,14 +24,13 @@ To accomplish the frontend test, your pages should communicate with our API to s
  
    ```
    UserInfo (
-     name: String,
-     cpf: String,
-     cnpj: String,
+     name: String, //minLength: 3, maxLength: 100
+     cpf: String, //length: 11
+     cnpj: String, //length: 14
      gender: Char,
      website: String,
      email: String,
-     telephone: String,
-     address: Address
+     telephone: String
    )
    ```
  
@@ -41,58 +40,49 @@ To accomplish the frontend test, your pages should communicate with our API to s
      streetNumber: Int,
      neighborhood: String,
      complement: String,
-     cep: String,
+     zip: String, //minLength: 8
      city: String,
-     state: String,
+     state: String, //length: 2
      country: String
    )
    ```
-   
- - Some information is not allowed to change when editing
- 
-   - On UserInfo you only can change:
-     - `name`
-     - `website`
-     - `email`
-     - `telephone`
-     - `address`
-     
-   - On Address, all information can change 
+
+> Document numbers and Zip codes should **not** include special characters.
 
  - Login
    ```
    GET /auth
    ```
 
- - Register new user
+ - Register new contact
    ```
    POST /contacts
       body: Contact model
       response: the contact with a new field `id`
    ```
 
- - Get all users in a single request
+ - Get all contacts in a single request
    ```
    GET /contacts
      response: list of contacts 
    ```
  
- - Get all users paginated
+ - Get paginated contacts (default values for page and size are 1 and 20, respectively)
    ```
    GET /contacts?page=<page_number>&size=<number_of_results_to_return>
-     response: list of contacts 
+     response: list of contacts
    ```
    
  - Edit a contact
    ```
    PUT /contacts/<contact_id>
-     body: the Contact model only with the fields that need to change
-     response: the updated contact 
+     body: the entire contact model with modified fields
+     response: updated contact
    ```
    
  - Delete a contact
    ```
    DELETE /contacts/<contact_id>
      body: nothing
-     response: the deleted contact
+     response: 200/Ok
    ```
