@@ -53,6 +53,7 @@ For this task, you must use the following tools:
  - Display validation errors
  - Correct mobile keyboard being shown for each field
  - Responsive pages
+ - Treat personal and address information on separated pages
  - Automatically populate all address information related to the given CEP
 
 > We recommend using this service: https://viacep.com.br. But feel free to use whichever you feel more comfortable with.
