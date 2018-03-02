@@ -19,20 +19,22 @@ The address must have the following information.
  - Street Number
  - Neighborhood
  - Complement
- - CEP
+ - ZipCode
  - City
  - State
  - Country
+ 
+ > All fields, except `Complement` are required
 
 ---
 Your website, whilst using our [api], should be able to:
 
- - [ ] Login using OAuth 2
+ - [ ] Login using Basic Authentication
  - [ ] Register a new contact with all the fields listed above
  - [ ] List all registered contacts
  - [ ] Edit a previously registered contact
  - [ ] Remove a previously registered contact
- - [ ] Send and retrieve all information about contacts to our web application*
+ - [ ] Send and retrieve all information about contacts to our web application
 
 > You should have received a login and password with the link for this document
 
@@ -51,8 +53,8 @@ For this task, you must use the following tools:
  - Code using Typescript
  - Use pagination for list results
  - Display validation errors
- - Correct mobile keyboard being shown for each field
  - Responsive pages
+ - Correct mobile keyboard being shown for each field
  - Treat personal and address information on separated pages
  - Automatically populate all address information related to the given CEP
 
@@ -60,9 +62,9 @@ For this task, you must use the following tools:
 
 ## Test Submission
 
-If you have **any** doubts please get in touch and clear them out before submiting your results.
+If you have **any** doubts please get in touch and clear them out before submitting your results.
 
 Submit your code to a public Github repository with short instructions on how to setup the system.
 Send the link of your repository to: [emanuella.souza@braspay.co](mailto:emanuella.souza@braspay.co)
 
-[api]: http://www.paguemob.com/interviews
+[api]: https://paguemob-interview-environment.firebaseapp.com/

@@ -4,7 +4,7 @@ To accomplish the frontend test, your pages should communicate with our API to s
 
  - Host URL: 
    ```
-   https://www.paguemob.com/interviews/frontend
+   https://paguemob-interview-environment.firebaseapp.com/
    ```
 
  - Models
@@ -48,6 +48,8 @@ To accomplish the frontend test, your pages should communicate with our API to s
    ```
 
 > Document numbers and Zip codes should **not** include special characters.
+
+> All information exchanged between api and frontend must be in JSON format.
 
  - Login
    ```

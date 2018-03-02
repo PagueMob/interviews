@@ -110,17 +110,15 @@ app.get('/contacts/:contactId', async (req,res) => {
     const contactId = req.params.contactId
     const userToken = req.headers.authorization.split('Basic ')[1];
 
-    const singleContactRef = admin.database().ref('contacts/' + userToken + '/' + contactId).orderByKey
+    const singleContactRef = admin.database().ref('contacts/' + userToken + '/' + contactId).orderByKey()
     await singleContactRef.once('value', (snapshot) => {
         if(!snapshot.hasChildren()) {
             return res.status(400)
         }
         
-        snapshot.forEach((snapshotItem) => {
-            const contactData = snapshotItem.val()
-            contactData.id = snapshotItem.key
-            return res.status(200).json(contactData)
-        })
+        const contactData = snapshot.val()
+        contactData.id = snapshot.key
+        return res.status(200).json(contactData)
     })
 })
 
