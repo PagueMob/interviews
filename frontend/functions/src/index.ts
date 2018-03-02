@@ -46,7 +46,6 @@ const acceptOnlyJson = (req, res, next) => {
 	if(['PUT','POST'].indexOf(req.method) !== -1 ) {
 		if(!req.headers['content-type'] ||
 			req.headers['content-type'] !== 'application/json') {
-			res.status(400)
 
 			const responseData = {
 				statusText: 'Bad Request',
@@ -63,9 +62,8 @@ app.use(acceptOnlyJson)
 
 // ------------------------- ENDPOINTS
 app.get('/contacts', async (req, res) => {
-	let {page = 1, size = 20} = req.query
-	page = parseInt(page)
-	size = parseInt(size)
+    const page = (isNaN(req.query.page)) ? 0 : parseInt(req.query.page)
+    const size = (isNaN(req.query.size)) ? 0 : parseInt(req.query.size)
 
 	if(page < 0 || size < 0) return res.sendStatus(400)
 
@@ -76,7 +74,7 @@ app.get('/contacts', async (req, res) => {
 
 	if(page > 1) {
 		const idArray = [];
-		const previousResults = (page - 1 ) * size
+		const previousResults = (page - 1 ) * size + 1
 		await contactRef.limitToFirst(previousResults).once('value', (snapshot) => {
 			snapshot.forEach((snapshotItem) => {
 				idArray.push(snapshotItem.key)
@@ -87,9 +85,10 @@ app.get('/contacts', async (req, res) => {
 			res.status(404).json(contactList)
 			return
 		}
-		contactRef = contactRef.startAt(lastItem).limitToFirst(size + 1)
+		contactRef = contactRef.startAt(lastItem)
 	}
-	else {
+    
+    if(size > 0){
 		contactRef = contactRef.limitToFirst(size)
 	}
 
@@ -100,15 +99,29 @@ app.get('/contacts', async (req, res) => {
 			contactList.push(contactData)
 		})
 	})
-
-	if(page > 1) {
-		contactList.shift()
-	}
 	
 	if(contactList.length === 0) {
 		res.status(404)
 	}
 	res.json(contactList)
+})
+
+app.get('/contacts/:contactId', async (req,res) => {
+    const contactId = req.params.contactId
+    const userToken = req.headers.authorization.split('Basic ')[1];
+
+    const singleContactRef = admin.database().ref('contacts/' + userToken + '/' + contactId).orderByKey
+    await singleContactRef.once('value', (snapshot) => {
+        if(!snapshot.hasChildren()) {
+            return res.status(400)
+        }
+        
+        snapshot.forEach((snapshotItem) => {
+            const contactData = snapshotItem.val()
+            contactData.id = snapshotItem.key
+            return res.status(200).json(contactData)
+        })
+    })
 })
 
 app.post('/contacts', validate({body: contacts.postSchema}), async (req, res) => {
@@ -119,9 +132,8 @@ app.post('/contacts', validate({body: contacts.postSchema}), async (req, res) =>
 
 	const newContactRef = admin.database().ref('contacts/' + userToken).push()
 	newContactRef.set(contactData).then(() => {
-		res.json({
-			contactId: newContactRef.key
-		})
+        contactData.id = newContactRef.key
+		res.status(201).json({contactData})
 	})
 })
 

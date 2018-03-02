@@ -17,12 +17,12 @@ export const userInfo = {
 		},
 		gender: {
 			type: 'string',
-			required: true,
+			required: false,
 			enum: ['M', 'm', 'F', 'f']
 		},
 		website: {
 			type: 'string',
-			required: true
+			required: false
 		},
 		email: {
 			type: 'string',
@@ -52,12 +52,12 @@ export const address = {
         },
         complement: {
             type: 'string',
-            required: true
+            required: false
         },
         zip: {
             type: 'string',
-			required: true,
-			minLength: 8
+            required: true,
+            minLength: 8
         },
         city: {
             type: 'string',
@@ -65,8 +65,7 @@ export const address = {
         },
         state: {
             type: 'string',
-			required: true,
-			maxLength: 2
+            required: true
         },
         country: {
             type: 'string',
