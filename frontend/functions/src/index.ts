@@ -89,8 +89,8 @@ app.get('/contacts', async (req, res) => {
 	}
     
     if(size > 0){
-		contactRef = contactRef.limitToFirst(size)
-	}
+        contactRef = contactRef.limitToFirst(size)
+    }
 
 	await contactRef.once('value', (snapshot) => {
 		return snapshot.forEach((snapshotItem) => {
@@ -110,10 +110,10 @@ app.get('/contacts/:contactId', async (req,res) => {
     const contactId = req.params.contactId
     const userToken = req.headers.authorization.split('Basic ')[1];
 
-    const singleContactRef = admin.database().ref('contacts/' + userToken + '/' + contactId).orderByKey()
+    const singleContactRef = admin.database().ref('contacts/' + userToken + '/' + contactId)
     await singleContactRef.once('value', (snapshot) => {
-        if(!snapshot.hasChildren()) {
-            return res.status(400)
+        if(!snapshot.exists()) {
+            return res.sendStatus(404)
         }
         
         const contactData = snapshot.val()
