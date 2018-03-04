@@ -42,7 +42,7 @@ export const address = {
             type: 'string',
 			required: true
         },
-        number: {
+        streetNumber: {
             type: 'number',
 			required: true
         },
