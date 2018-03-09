@@ -61,6 +61,8 @@ const acceptOnlyJson = (req, res, next) => {
 app.use(acceptOnlyJson)
 
 // ------------------------- ENDPOINTS
+app.get('/auth', async (req, res) => res.json({ status: 'authenticated' }));
+
 app.get('/contacts', async (req, res) => {
     const page = (isNaN(req.query.page)) ? 0 : parseInt(req.query.page)
     const size = (isNaN(req.query.size)) ? 0 : parseInt(req.query.size)
