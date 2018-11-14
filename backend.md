@@ -36,6 +36,7 @@ The following operations should be available through the API:
  - [ ] Should be able to return a list of Employees whose `Job Title` **contains** a specified word
  - [ ] Should be able to return a single `Employee` with a specified `id`
  - [ ] Should be able to return a list with all supported Industries (List can have any entries, but at least 10 pre-definied items)
+ - [ ] Authentication using OAuth2 and Spring Security (so you won't need to register user access, you could authenticate any username with a giving email domain while ignoring other domains.)
 
 ---
 ## Stack
