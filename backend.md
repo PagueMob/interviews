@@ -36,6 +36,7 @@ The following operations should be available through the API:
  - [ ] Should be able to return a list of Employees whose `Job Title` **contains** a specified word
  - [ ] Should be able to return a single `Employee` with a specified `id`
  - [ ] Should be able to return a list with all supported Industries (List can have any entries, but at least 10 pre-definied items)
+ - [ ] Authentication using OAuth2 and Spring Security (so you won't need to register user access, you could authenticate any username with a giving email domain while ignoring other domains.)
 
 ---
 ## Stack
@@ -54,7 +55,11 @@ For this task, we would like you to use the following tools:
  - Validation errors
  - API documentation
  - Live version on [Heroku](https://heroku.com)
- - Authentication using OAuth2 and Spring Security
+ - Access Roles
+   - [ ] System admin authorized to create/list companies and employees of any company
+   - [ ] Company admin authorized to create/list employes and data of his company
+   - [ ] Company user authorized only to list companies and employes 
+   - [ ] Unsigned user authorized only to list companies (no employee data)
 
 ## Test Submission
 
