@@ -55,7 +55,11 @@ For this task, we would like you to use the following tools:
  - Validation errors
  - API documentation
  - Live version on [Heroku](https://heroku.com)
- - Authentication using OAuth2 and Spring Security
+ - Access Roles
+   - [ ] System admin authorized to create/list companies and employees of any company
+   - [ ] Company admin authorized to create/list employes and data of his company
+   - [ ] Company user authorized only to list companies and employes 
+   - [ ] Unsigned user authorized only to list companies (no employee data)
 
 ## Test Submission
 
